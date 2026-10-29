@@ -1,0 +1,54 @@
+.MODEL SMALL
+.STACK 100H
+
+.DATA
+NUM DB 13
+DEN DB 3
+QUOT DB ?
+REM DB ?
+
+.CODE
+MAIN PROC
+    MOV AX, @DATA
+    MOV DS, AX
+
+    MOV AL, NUM
+    MOV AH, 0
+    MOV BL, DEN
+    MOV CL, 8
+
+L1:
+    TEST AH, 80H
+    JNZ NEGATIVE
+
+    SHL AL, 1
+    RCL AH, 1
+    SUB AH, BL
+    JMP CHECK
+
+NEGATIVE:
+    SHL AL, 1
+    RCL AH, 1
+    ADD AH, BL
+
+CHECK:
+    TEST AH, 80H
+    JNZ NEXT
+    OR AL, 1
+
+NEXT:
+    DEC CL
+    JNZ L1
+
+    TEST AH, 80H
+    JZ STORE
+    ADD AH, BL
+
+STORE:
+    MOV QUOT, AL
+    MOV REM, AH
+
+    MOV AH, 4CH
+    INT 21H
+MAIN ENDP
+END MAIN

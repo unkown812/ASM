@@ -1,0 +1,58 @@
+.MODEL SMALL
+.STACK 100H
+
+.CODE
+MAIN PROC
+    MOV AX, 0013H
+    INT 10H
+
+    MOV AH, 0CH
+    MOV AL, 0FH
+    MOV BH, 0
+
+    MOV CX, 50
+    MOV DX, 50
+
+L1:
+    INT 10H
+    INC CX
+    CMP CX, 150
+    JNE L1
+
+    MOV CX, 50
+    MOV DX, 100
+
+L2:
+    INT 10H
+    INC CX
+    CMP CX, 150
+    JNE L2
+
+    MOV CX, 50
+    MOV DX, 50
+
+L3:
+    INT 10H
+    INC DX
+    CMP DX, 101
+    JNE L3
+
+    MOV CX, 150
+    MOV DX, 50
+
+L4:
+    INT 10H
+    INC DX
+    CMP DX, 101
+    JNE L4
+
+    MOV AH, 00H
+    INT 16H
+
+    MOV AX, 0003H
+    INT 10H
+
+    MOV AH, 4CH
+    INT 21H
+MAIN ENDP
+END MAIN

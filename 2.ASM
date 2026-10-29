@@ -1,0 +1,50 @@
+.MODEL SMALL
+.STACK 100H
+
+.DATA
+A DB 12H
+B DB 04H
+
+.CODE
+MAIN PROC
+    MOV AX, @DATA
+    MOV DS, AX
+
+    MOV AL, A
+    ADD AL, B
+    MOV SUM, AL
+
+    MOV AL, A
+    SUB AL, B
+    MOV DIFF, AL
+
+    MOV AL, A
+    MUL B
+    MOV PROD, AX
+
+    MOV AL, A
+    MOV AH, 0
+    DIV B
+    MOV QUOT, AL
+    MOV REM, AH
+
+    MOV AL, A
+    AND AL, B
+    MOV ANDR, AL
+
+    MOV AL, A
+    OR AL, B
+    MOV ORR, AL
+
+    MOV AL, A
+    XOR AL, B
+    MOV XORR, AL
+
+    MOV AL, A
+    NOT AL
+    MOV NOTR, AL
+
+    MOV AH, 4CH
+    INT 21H
+MAIN ENDP
+END MAIN
